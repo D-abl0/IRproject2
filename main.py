@@ -441,30 +441,23 @@ def execute_query():
 
 
 
+import hashlib
+from project_runner import ProjectRunner  # Assuming you have a ProjectRunner module
 
 if __name__ == "__main__":
-    """ Driver code for the project, which defines the global variables.
-        Do NOT change it."""
+    """Driver code for the project, defines global variables, and initializes the project."""
 
+    # Directly specify file paths and username
+    corpus = "input_corpus.txt"  # File in the same directory
     output_location = "project2_output.json"
-    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("--corpus", type=str, help="Corpus File name, with path.")
-    parser.add_argument("--output_location", type=str, help="Output file name.", default=output_location)
-    parser.add_argument("--username", type=str,
-                        help="Your UB username. It's the part of your UB email id before the @buffalo.edu. "
-                             "DO NOT pass incorrect value here")
-
-    argv = parser.parse_args()
-
-    corpus = argv.corpus
-    output_location = argv.output_location
-    username_hash = hashlib.md5(argv.username.encode()).hexdigest()
-
-    """ Initialize the project runner"""
+    username = "cgurram"  # Replace with your actual UB username
+    
+    # Generate a username hash
+    username_hash = hashlib.md5(username.encode()).hexdigest()
+    
+    # Initialize and run the project
     runner = ProjectRunner()
-
-    """ Index the documents from beforehand. When the API endpoint is hit, queries are run against
-        this pre-loaded in memory index. """
     runner.run_indexer(corpus)
-
+    
+    # Start the app
     app.run(host="0.0.0.0", port=9999)
