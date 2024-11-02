@@ -442,7 +442,6 @@ def execute_query():
 
 
 import hashlib
-from project_runner import ProjectRunner  # Assuming you have a ProjectRunner module
 
 if __name__ == "__main__":
     """Driver code for the project, defines global variables, and initializes the project."""
